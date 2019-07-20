@@ -53,6 +53,7 @@
             addNewItem: function () {
                 if (this.newItem && this.newItem.trim()) {
                     let item = this.newItem.trim()
+                    this.filterList.push({title: item, completed: false})
                     this.toDoList.push({title: item, completed: false})
                     this.newItem=''
                 }
@@ -66,7 +67,6 @@
                     this.filterList=this.toDoList.filter(item=>!item.completed)
                 }
             },
-
         }
     }
 </script>
