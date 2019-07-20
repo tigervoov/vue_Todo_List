@@ -12,7 +12,7 @@
                     <div>
                         <input class="checkbox" type="checkbox" v-model="item.completed" >
                         <label class="title">{{ item.title }}</label>
-                        <span class="deleteBtn" >╳</span>
+                        <span class="deleteBtn" @click="deleteItem(item,index)" >╳</span>
                     </div>
                 </li>
             </ol>
@@ -67,6 +67,10 @@
                     this.filterList=this.toDoList.filter(item=>!item.completed)
                 }
             },
+            deleteItem(itemDel,index){
+                this.filterList.splice(index,1)
+                this.toDoList.splice(this.toDoList.findIndex(item => item.title === itemDel.title), 1)
+            }
         }
     }
 </script>
