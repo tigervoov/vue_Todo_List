@@ -42,8 +42,12 @@
                 toDoList: [{title: "aaaaaaaaaaaaaa",completed: false},{title: "bbbbbbbbb",completed: false},{title: "ccccccccccccc",completed: false}],
                 newItem: '',
                 filterList:[],
+                pageNow:''
 
             }
+        },
+        created:function(){
+            this.filterList=this.toDoList.map(item=>item)
         },
         methods: {
             addNewItem: function () {
@@ -53,6 +57,16 @@
                     this.newItem=''
                 }
             },
+            changeList:function (type) {
+                if(type==='all'){
+                    this.filterList=this.toDoList.map(item=>item)
+                }if(type==='active'){
+                    this.filterList=this.toDoList.filter(item=>item.completed)
+                }if(type==='complete'){
+                    this.filterList=this.toDoList.filter(item=>!item.completed)
+                }
+            },
+
         }
     }
 </script>
