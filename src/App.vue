@@ -6,12 +6,12 @@
 
 <script>
 
-
+import ToDoMvc from "./components/Todomvc";
 
 export default {
   name: 'app',
   components: {
-
+    ToDoMvc,
   }
 }
 </script>
