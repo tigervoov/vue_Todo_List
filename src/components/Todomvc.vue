@@ -11,63 +11,49 @@
 </template>
 
 <script>
-import {mapGetters,mapMutations} from 'vuex'
+import { mapGetters, mapMutations } from "vuex";
 import headerText from "./header.vue";
 import LiItem from "./LiItem.vue";
-import footerText from "./footer.vue"
+import footerText from "./footer.vue";
 export default {
   name: "Todomvc",
   data: function() {
-    return {
-
-    };
+    return {};
   },
   components: {
     LiItem,
     headerText,
     footerText
   },
-    computed:{
-        ...mapGetters({
-            toDoList:'getToDolist'
+  computed: {
+    ...mapGetters({
+      toDoList: "getToDolist"
+    })
+  },
+  created() {
+    this.initData();
+  },
+  methods: {
+    ...mapMutations(["addItem", "deleteItem"]),
+    async initData() {
+      await this.$http({
+        method: "get",
+        url: "http://localhost:9999/items"
+      })
+        .then((res)=> {
+          this.$store.commit('initData',res.data)
         })
-    },
-    methods: {
-
-      ...mapMutations([
-          'addItem',
-          'deleteItem'
-      ])
-    //    this.$http({
-    //       method:'get',
-    //       url:'http://localhost:8989/parkinglots/parkinglot11',
-    //     }).then(function(res){
-    //       console.log(res)
-    //     }).catch(function(err){
-    //       console.log(err)
-    //     })
-    },
-    changeList: function(type) {
-      if (type === "all") {
-        this.filterList = this.toDoList.map(item => item);
-      }
-      if (type === "active") {
-        this.filterList = this.toDoList.filter(item => !item.completed);
-      }
-      if (type === "complete") {
-        this.filterList = this.toDoList.filter(item => item.completed);
-      }
-    },
-    // deleteItem(itemDel,index){
-    //     this.filterList.splice(index,1)
-    //     this.toDoList.splice(this.toDoList.findIndex(item => item.title === itemDel.title), 1)
-    // }
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
   }
-
+ 
+};
 </script>
 
 <style scoped>
- .content {
+.content {
   position: relative;
   margin: 0 auto;
   width: 500px;
