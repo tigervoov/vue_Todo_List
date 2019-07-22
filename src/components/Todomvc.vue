@@ -8,13 +8,14 @@
         </div>
         <div class="list">
             <ol>
-                <li class="row-item" v-for="(item,index) of filterList" :key="item.index" :class="{completed:item.completed,rowColor:index%2==0}">
+                <!-- <li class="row-item" v-for="(item,index) of filterList" :key="item.index" :class="{completed:item.completed,rowColor:index%2==0}">
                     <div>
                         <input class="checkbox" type="checkbox" v-model="item.completed" >
                         <label class="title">{{ item.title }}</label>
                         <span class="deleteBtn" @click="deleteItem(item,index)" >╳</span>
                     </div>
-                </li>
+                </li> -->
+                <li-item v-bind:filterList="filterList" @delete-item="deleteItem"></li-item>
             </ol>
         </div>
         <div class="footer">
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+import LiItem from './LiItem.vue'
     export default {
         name: "Todomvc",
         data: function () {
@@ -45,6 +47,9 @@
                 pageNow:''
 
             }
+        },
+        components:{
+            LiItem,
         },
         created:function(){
             this.filterList=this.toDoList.map(item=>item)
@@ -62,13 +67,16 @@
                 if(type==='all'){
                     this.filterList=this.toDoList.map(item=>item)
                 }if(type==='active'){
-                    this.filterList=this.toDoList.filter(item=>item.completed)
-                }if(type==='complete'){
                     this.filterList=this.toDoList.filter(item=>!item.completed)
+                }if(type==='complete'){
+                    this.filterList=this.toDoList.filter(item=>item.completed)
                 }
             },
-            deleteItem(itemDel,index){
-                this.filterList.splice(index,1)
+            // deleteItem(itemDel,index){
+            //     this.filterList.splice(index,1)
+            //     this.toDoList.splice(this.toDoList.findIndex(item => item.title === itemDel.title), 1)
+            // }
+            deleteItem(itemDel){
                 this.toDoList.splice(this.toDoList.findIndex(item => item.title === itemDel.title), 1)
             }
         }
@@ -108,7 +116,7 @@
         list-style: none;
         padding-left:0px;
     }
-    .row-item{
+    /* .row-item{
         line-height: 40px;
     }
     .checkbox{
@@ -124,7 +132,7 @@
         margin-right: 20px;
         vertical-align: middle;
         cursor: pointer;
-    }
+    } */
     ul,li{
         list-style: none;
     }
