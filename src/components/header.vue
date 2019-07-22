@@ -4,24 +4,29 @@
     <h3>
       <i>Simple Todo List with adding and filter by diff status.</i>
     </h3>
-    <input class="inputText" type="text" autofocus v-model="newItem" @keyup.enter="addNewItem" />
-    <button class="addBtn" @click="addNewItem">Add</button>
+    <input class="inputText" type="text" autofocus v-model="newItem.title" @keyup.enter="addItem(newItem)" />
+    <button class="addBtn" @click="addItem(newItem)">Add</button>
   </div>
 </template>
 
 <script>
+import {mapMutations,mapGetters} from 'vuex'
 export default {
   name: "headerText",
   props: [""],
   data() {
     return {
-        newItem:'',
+        
     };
   },
 
   components: {},
 
-  computed: {},
+  computed: {
+      ...mapGetters({
+          newItem:'getNewItem'
+      })
+  },
 
   created() {},
 
@@ -32,13 +37,16 @@ export default {
   },
 
   methods: {
-    addNewItem: function() {
-      if (this.newItem && this.newItem.trim()) {
-        let item = this.newItem.trim();
-        this.$emit('add-item',item)
-        this.newItem = "";
-      }
-    }
+    // addNewItem: function() {
+    //   if (this.newItem && this.newItem.trim()) {
+    //     let item = this.newItem.trim();
+    //     this.$emit('add-item',item)
+    //     this.newItem = "";
+    //   }
+    // }
+    ...mapMutations([
+        'addItem',
+    ])
   },
 
   watch: {}

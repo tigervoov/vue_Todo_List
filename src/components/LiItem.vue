@@ -1,10 +1,10 @@
 <template>
     <div>
-        <li class="row-item" v-for="(item,index) of filterList" :key="item.index" :class="{completed:item.completed,rowColor:index%2==0}">
+        <li class="row-item" v-for="(item,index) of filterList" :key="item.id" :class="{completed:item.completed,rowColor:index%2==0}">
             <div>
                 <input class="checkbox" type="checkbox" v-model="item.completed">
                 <label class="title">{{ item.title }}</label>
-                <span class="deleteBtn" @click="deleteItem(item,index)" >╳</span>
+                <span class="deleteBtn" @click="deleteItem(item)" >╳</span>
             </div>
         </li>
     </div>
@@ -12,15 +12,15 @@
 </template>
 
 <script>
+import {mapGetters,mapMutations} from 'vuex'
+
 export default {
     name:'LiItem',
     props:['filterList'],
     methods:{
-        deleteItem(itemDel,index){
-                this.filterList.splice(index,1)
-                //this.toDoList.splice(this.toDoList.findIndex(item => item.title === itemDel.title), 1)
-                this.$emit('delete-item',itemDel)
-        }
+         ...mapMutations([
+          'deleteItem'
+      ])
     }
     
 }
