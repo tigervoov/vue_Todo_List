@@ -7,7 +7,7 @@
       </h3>
       <input class="inputText" type="text" autofocus v-model="newItem" @keyup.enter="addNewItem" />
       <button class="addBtn" @click="addNewItem">Add</button>
-    </div> -->
+    </div>-->
     <header-text @add-item="addNewItem"></header-text>
     <div class="list">
       <ol>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import headerText from './header.vue';
+import headerText from "./header.vue";
 import LiItem from "./LiItem.vue";
 export default {
   name: "Todomvc",
@@ -59,21 +59,30 @@ export default {
   },
   components: {
     LiItem,
-    headerText,
+    headerText
   },
   created: function() {
-    this.filterList = this.toDoList.map(item => item);
+    this.filterList = this.toDoList;
   },
   methods: {
     addNewItem: function(newItem) {
-    //   if (this.newItem && this.newItem.trim()) {
-    //     let item = this.newItem.trim();
-    //     this.filterList.push({ title: item, completed: false });
-    //     this.toDoList.push({ title: item, completed: false });
-    //     this.newItem = "";
-    //   }
-        this.filterList.push({ title: newItem, completed: false });
-        this.toDoList.push({ title: newItem, completed: false });
+      //   if (this.newItem && this.newItem.trim()) {
+      //     let item = this.newItem.trim();
+      //     this.filterList.push({ title: item, completed: false });
+      //     this.toDoList.push({ title: item, completed: false });
+      //     this.newItem = "";
+      //   }
+    
+      this.toDoList.push({ title: newItem, completed: false });
+
+    //    this.$http({
+    //       method:'get',
+    //       url:'http://localhost:8989/parkinglots/parkinglot11',
+    //     }).then(function(res){
+    //       console.log(res)
+    //     }).catch(function(err){
+    //       console.log(err)
+    //     })
     },
     changeList: function(type) {
       if (type === "all") {
