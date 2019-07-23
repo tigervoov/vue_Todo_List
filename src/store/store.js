@@ -69,7 +69,15 @@ const store = new Vuex.Store({
         headers: { 'Content-Type': 'application/json;charset=UTF-8' }
       })
       .then((res) => {
-        commit('addItem', addNewItem)
+        if(!res.data){
+           commit('addItem', addNewItem)
+        }else{
+          if(res.data.code===1){
+            alert(res.data.mess)
+            console.log(res.data)
+          }
+        }
+        
       })
       .catch(function (err) {
         console.log(err);
