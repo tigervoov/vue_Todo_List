@@ -2,7 +2,7 @@
     <div>
         <li class="row-item" v-for="(item,index) of filterList" :key="item.id" :class="{completed:item.completed,rowColor:index%2==0}">
             <div>
-                <input class="checkbox" type="checkbox" v-model="item.completed">
+                <input class="checkbox" type="checkbox" v-model="item.completed" @change="changeStatus(item)">
                 <label class="title">{{ item.title }}</label>
                 <span class="deleteBtn" @click="deleteItem(item)" >╳</span>
             </div>
@@ -17,11 +17,18 @@ import {mapGetters,mapMutations} from 'vuex'
 export default {
     name:'LiItem',
     props:['filterList'],
+    data(){
+        return{
+            isEdit:false
+        }
+    },
     methods:{
-         ...mapMutations([
-          'deleteItem'
-      ])
-    
+        deleteItem(item){
+            this.$store.dispatch('deleteItemToBackend',item)
+        },
+        changeStatus(item){
+            this.$store.dispatch('updateItemStatus',item)
+        }
     }
     
 }

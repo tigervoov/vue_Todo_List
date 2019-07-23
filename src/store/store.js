@@ -26,49 +26,19 @@ const store = new Vuex.Store({
       if (state.nowPage === 'all') {
         return state.filterList
       } if (state.nowPage === 'active') {
-        return state.toDoList.filter(item => !item.completed)
+        return state.filterList.filter(item => !item.completed)
       } if (state.nowPage === 'completed') {
-        return state.toDoList.filter(item => item.completed)
+        return state.filterList.filter(item => item.completed)
       }
     },
 
   },
   mutations: {
     addItem(state, newItem) {
-      if (newItem && newItem.title.trim()) {
-        let addNewItem = {
-          id: Math.floor(Math.random() * 1000000),
-          title: '',
-          completed: false
-        }
-        addNewItem.title = newItem.title.trim();
-        state.toDoList.push(addNewItem)
-        axios({
-          method: "post",
-          url: "http://localhost:9999/items/",
-          data:JSON.stringify(addNewItem),
-        })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch(function (err) {
-            console.log(err);
-          });
-      }
+      state.toDoList.push(newItem)
     },
     deleteItem(state, delItem) {
       state.toDoList.splice(state.toDoList.findIndex(item => item.id == delItem.id), 1)
-        axios({
-        method: "delete",
-        url: "http://localhost:9999/items/"+delItem.id,
-
-      })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
     },
     changeNowPage(state, nowPage) {
       state.nowPage = nowPage
@@ -77,6 +47,63 @@ const store = new Vuex.Store({
       state.toDoList = data
       console.log(data)
     }
+  },
+  actions: {
+    async getAllItem({ commit }) {
+      await axios({
+        method: "get",
+        url: "http://localhost:9999/items"
+      })
+      .then((res) => {
+        commit('initData', res.data)
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    },
+    async addItemToBackend({ commit }, addNewItem) {
+      await axios({
+        method: "post",
+        url: "http://localhost:9999/items/",
+        data: JSON.stringify(addNewItem),
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+      })
+      .then((res) => {
+        commit('addItem', addNewItem)
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+    },
+    async deleteItemToBackend({ commit }, delItem) {
+      await axios({
+        method: "delete",
+        url: "http://localhost:9999/items/" + delItem.id,
+      })
+      .then((res) => {
+        commit('deleteItem', delItem)
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    },
+    async updateItemStatus ({commit},changeItem) {
+      console.log(changeItem.id)
+      await axios({
+        method:'put',
+        url:"http://localhost:9999/items/"+changeItem.id,
+        data: JSON.stringify(changeItem),
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+      })
+      .then((res)=>{
+        console.log('状态改变成功',res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
+
   }
 })
 

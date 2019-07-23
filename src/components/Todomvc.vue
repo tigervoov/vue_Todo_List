@@ -34,18 +34,8 @@ export default {
     this.initData();
   },
   methods: {
-    ...mapMutations(["addItem", "deleteItem"]),
-    async initData() {
-      await this.$http({
-        method: "get",
-        url: "http://localhost:9999/items"
-      })
-        .then((res)=> {
-          this.$store.commit('initData',res.data)
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
+    initData(){
+        this.$store.dispatch('getAllItem')
     }
   }
  
