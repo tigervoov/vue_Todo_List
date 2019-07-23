@@ -2,16 +2,16 @@
   <div class="container">
     <div class="header">
       <div>
-        <router-link to="/welcome" class="linkhome">首页</router-link>
+        <router-link to="/home" onClick="if(confirm('确认百度吗？')==false)return false;" class="linkhome">首页</router-link>
       </div>
     </div>
     <div class="left">
-      <router-link to="/todolist">
+      <router-link :to="{name:'toDoList'}">
         <div class="linkitem">TodoList</div>
       </router-link>
 
-      <router-link to="/welcome">
-        <div class="linkitem">welcome</div>
+      <router-link :to="{name:'information'}">
+        <div class="linkitem">My Info</div>
       </router-link>
     </div>
     <div class="right">
@@ -38,7 +38,9 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+   
+  },
 
   watch: {}
 };

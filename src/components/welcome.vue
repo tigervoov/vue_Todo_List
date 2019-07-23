@@ -27,7 +27,7 @@ export default {
 
   methods: {
     toLinkTarget() {
-      this.$router.push({ name: "home", params: { value: this.linkValue } });
+      this.$router.push({ name: "home", params: { name: this.linkValue } });
     }
   },
 
