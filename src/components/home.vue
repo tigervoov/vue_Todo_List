@@ -1,7 +1,8 @@
 <template>
   <a-layout>
     <a-layout-header>
-      <router-link to="/home" class="linkhome">首页</router-link>
+      <!-- <router-link to="/home" class="linkhome" >首页</router-link> -->
+      <span class="linkhome" @click="showConfirm">首页</span>
       <span class="linkuser" @click="linkToUser">Hello {{ name }}</span>
     </a-layout-header>
     <a-layout>
@@ -54,6 +55,17 @@ export default {
       if (e.key === "user") {
         this.$router.push({ name: "information" });
       }
+    },
+    showConfirm() {
+      this.$confirm({
+        title: "Are you sure return home page?",
+        content: "Some descriptions",
+        onOk: () => {
+          this.$router.push({ name: "welcome" });
+        },
+        onCancel() {},
+        class: "test"
+      });
     }
   },
 
@@ -63,10 +75,11 @@ export default {
 <style scoped>
 .linkhome {
   color: white;
+  line-height: 60px;
+  cursor: pointer;
 }
 .linkuser {
   float: right;
-  text-decoration: none;
   color: white;
   line-height: 60px;
   cursor: pointer;
