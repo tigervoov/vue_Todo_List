@@ -34,11 +34,10 @@ export default {
     this.initData();
   },
   methods: {
-    initData(){
-        this.$store.dispatch('getAllItem')
+    initData() {
+      this.$store.dispatch("getAllItem");
     }
   }
- 
 };
 </script>
 
@@ -51,6 +50,7 @@ export default {
 }
 
 .list {
+  margin-top: 30px;
   min-height: 250px;
 }
 

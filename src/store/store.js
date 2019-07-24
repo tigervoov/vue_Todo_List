@@ -5,9 +5,6 @@ import axios from 'axios';
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    // toDoList: [{ id: "231113", title: "aaaaaaaaaaaaaa", completed: false },
-    // { id: "261123", title: "bbbbbbbbb", completed: false },
-    // { id: "211231", title: "ccccccccccccc", completed: false }],
     toDoList: [],
     filterList: [],
     newItem: {
@@ -45,8 +42,7 @@ const store = new Vuex.Store({
     },
     initData(state, data) {
       state.toDoList = data
-      console.log(data)
-    }
+    },
   },
   actions: {
     async getAllItem({ commit }) {
@@ -58,7 +54,6 @@ const store = new Vuex.Store({
         commit('initData', res.data)
       })
       .catch(function (err) {
-        console.log(err);
       });
     },
     async addItemToBackend({ commit }, addNewItem) {
@@ -74,13 +69,11 @@ const store = new Vuex.Store({
         }else{
           if(res.data.code===1){
             alert(res.data.mess)
-            console.log(res.data)
           }
         }
         
       })
       .catch(function (err) {
-        console.log(err);
       });
 
     },
@@ -93,11 +86,9 @@ const store = new Vuex.Store({
         commit('deleteItem', delItem)
       })
       .catch(function (err) {
-        console.log(err);
       });
     },
     async updateItemStatus ({commit},changeItem) {
-      console.log(changeItem.id)
       await axios({
         method:'put',
         url:"http://localhost:9999/items/"+changeItem.id,
@@ -108,7 +99,6 @@ const store = new Vuex.Store({
         console.log('状态改变成功',res)
       })
       .catch((err)=>{
-        console.log(err)
       })
     }
 

@@ -18,22 +18,18 @@
 </template>
 
 <script>
-import {mapGetters,mapMutations} from 'vuex'
+import { mapMutations } from "vuex";
 export default {
   name: "footerText",
   data() {
     return {};
   },
   methods: {
-    ...mapMutations([
-        'changeNowPage'
-    ])
-  },
+    ...mapMutations(["changeNowPage"])
+  }
 };
 </script>
 <style  scoped>
-
-
 ul,
 li {
   list-style: none;

@@ -20,6 +20,7 @@ export default new VueRouter({
             name:'home',
             path: '/home/:name', 
             component: home,
+            props:true,
             children:[
                 {
                     name:'toDoList',

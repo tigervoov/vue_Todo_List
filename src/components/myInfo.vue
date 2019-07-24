@@ -2,6 +2,7 @@
   <div class="content">
     <img src="../static/img/th.jpg">
     <h2>{{ $route.params.name }}</h2>
+    <!-- <h2>{{ name }}</h2> -->
     <h2>电话：110</h2>
   </div>
 </template>
@@ -10,7 +11,7 @@
 
   export default {
     name:'',
-    props:[''],
+    props:[],
     data () {
       return {
 

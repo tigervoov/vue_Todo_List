@@ -4,19 +4,24 @@
     <h3>
       <i>Simple Todo List with adding and filter by diff status.</i>
     </h3>
-    <input
+    <!-- <input
       class="inputText"
       type="text"
       autofocus
       v-model="newItem.title"
       @keyup.enter="addItem(newItem)"
+    /> -->
+    <a-input
+      placeholder="write the content"
+      style="width: 340px"
     />
-    <button class="addBtn" @click="addItem(newItem)">Add</button>
+    <!-- <button class="addBtn" @click="addItem(newItem)">Add</button> -->
+    <a-button class="addBtn" @click="addItem(newItem)">Add</a-button>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "headerText",
   props: [""],
@@ -77,12 +82,6 @@ export default {
 }
 .addBtn {
   margin-left: 40px;
-  height: 40px;
-  width: 80px;
-  border: none;
-  color: #ffffff;
-  border-radius: 6px;
-  background-color: #fc999a;
   cursor: pointer;
 }
 </style>

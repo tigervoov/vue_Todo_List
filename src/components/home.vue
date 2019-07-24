@@ -1,29 +1,34 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <div>
-        <router-link to="/home" onClick="if(confirm('确认百度吗？')==false)return false;" class="linkhome">首页</router-link>
-      </div>
-    </div>
-    <div class="left">
-      <router-link :to="{name:'toDoList'}">
-        <div class="linkitem">TodoList</div>
-      </router-link>
-
-      <router-link :to="{name:'information'}">
-        <div class="linkitem">My Info</div>
-      </router-link>
-    </div>
-    <div class="right">
-      <router-view></router-view>
-    </div>
-  </div>
+  <a-layout>
+    <a-layout-header>
+      <router-link to="/home" class="linkhome">首页</router-link>
+      <span class="linkuser" @click="linkToUser">Hello {{ name }}</span>
+    </a-layout-header>
+    <a-layout>
+      <a-layout-sider width="200" style="background: #fff">
+        <a-menu mode="inline" :defaultSelectedKeys="['todolist']" @click="changeItem">
+          <a-menu-item key="todolist">
+            <a-icon type="calendar" />
+            <span>To Do List</span>
+          </a-menu-item>
+          <a-menu-item key="user">
+            <a-icon type="user" />
+            <span>My Imformation</span>
+          </a-menu-item>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout-content>
+        <router-view></router-view>
+      </a-layout-content>
+    </a-layout>
+    <!-- <a-layout-footer>Footer</a-layout-footer> -->
+  </a-layout>
 </template>
 
 <script>
 export default {
   name: "home",
-  props: [""],
+  props: ["name"],
   data() {
     return {};
   },
@@ -39,7 +44,17 @@ export default {
   mounted() {},
 
   methods: {
-   
+    linkToUser() {
+      this.$router.push({ name: "information" });
+    },
+    changeItem(e) {
+      if (e.key === "todolist") {
+        this.$router.push({ name: "toDoList" });
+      }
+      if (e.key === "user") {
+        this.$router.push({ name: "information" });
+      }
+    }
   },
 
   watch: {}
@@ -47,10 +62,16 @@ export default {
 </script>
 <style scoped>
 .linkhome {
+  color: white;
+}
+.linkuser {
+  float: right;
   text-decoration: none;
   color: white;
   line-height: 60px;
+  cursor: pointer;
 }
+/*
 .linkitem {
   line-height: 50px;
   text-align: center;
@@ -83,5 +104,5 @@ a {
   width: 70%;
   background-color: #ffffff;
   text-align: left;
-}
+} */
 </style>
